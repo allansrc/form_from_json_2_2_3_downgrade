@@ -1,0 +1,3 @@
+class FileTypesEntity {
+  FileTypesEntity();
+}
