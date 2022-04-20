@@ -1,6 +1,6 @@
 name: form_from_json
 description: A new project that allows you render a form page from JSON.
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/allansrc/form_from_json_2_2_3_downgrade
 
 environment:
