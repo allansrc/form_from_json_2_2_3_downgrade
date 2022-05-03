@@ -138,8 +138,7 @@ class GlobalFormController {
             } else {
               value = e.values.elementAt(0).toString();
             }
-            return ValuesEntity(
-                label: value, value: e[component.valueProperty].toString(), shortcut: e);
+            return ValuesEntity(label: value, value: e[component.valueProperty].toString(), shortcut: e);
           },
         ),
       );
@@ -152,7 +151,7 @@ class GlobalFormController {
   ) {
     if (component.selectValues.isEmpty) {
       if (map.containsKey('values')) {
-        var converterChildrensFromMap = map['values'];
+        var converterChildrensFromMap = map['values'] as List;
         var childrensConverted = <Map<String, dynamic>>[];
         for (var child in converterChildrensFromMap) {
           final tempChild = child as Map<String, dynamic>;
@@ -196,10 +195,7 @@ class GlobalFormController {
     var reg1 = RegExp(r"<.\w*>");
     var reg2 = RegExp(r"[ {}]*");
     var reg3 = RegExp(r"item.");
-    template = template
-        .replaceAllMapped(reg1, (match) => '')
-        .replaceAllMapped(reg2, (match) => '')
-        .replaceAllMapped(reg3, (match) => '');
+    template = template.replaceAllMapped(reg1, (match) => '').replaceAllMapped(reg2, (match) => '').replaceAllMapped(reg3, (match) => '');
 
     var templatesFields = template.split('-');
     var newTemplate = '';
