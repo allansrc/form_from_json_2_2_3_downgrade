@@ -11,12 +11,20 @@ class GetDataByUrlDatasource implements GetDataByUrlDatasourceInterface {
   GetDataByUrlDatasource(this.service);
 
   @override
-  Future<DataByUrlEntity> call(AccessParamsDto args) async {
+  Future<DataByUrlEntity> call(AccessParamsDto args, String argValue) async {
+    var optArgs = '';
+    if (args.url.contains('ocorrencia.id') && argValue.isNotEmpty) {
+      optArgs = args.url.toString().split('ocorrencia.id').first + argValue;
+    }
     final response = await service.get(
-      args.url,
+      optArgs.isEmpty ? args.url : optArgs,
       headers: args.headers,
       responseType: ResponseType.json,
     );
-    return DataByUrlAdapter.fromMap(response.data);
+    if (response.data is List) {
+      return DataByUrlAdapter.fromMap(<String, dynamic>{'values': response.data});
+    } else {
+      return DataByUrlAdapter.fromMap(response.data);
+    }
   }
 }

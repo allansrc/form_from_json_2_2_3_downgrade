@@ -6,5 +6,5 @@ import '../../entities/data_by_url_entity.dart';
 
 // ignore: one_member_abstracts
 abstract class GetDataByUrlUsecaseInterface {
-  Future<Either<FormFromJsonError, DataByUrlEntity>> call(AccessParamsDto args);
+  Future<Either<FormFromJsonError, DataByUrlEntity>> call(AccessParamsDto args, String argsParam);
 }

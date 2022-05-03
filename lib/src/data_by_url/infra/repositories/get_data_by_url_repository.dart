@@ -13,9 +13,9 @@ class GetDataByUrlRepository implements GetDataByUrlRepositoryInterface {
 
   @override
   Future<Either<FormFromJsonError, DataByUrlEntity>> call(
-      AccessParamsDto args) async {
+      AccessParamsDto args, String argsParam) async {
     try {
-      final result = await datasource(args);
+      final result = await datasource(args, argsParam);
       return Right(result);
     } on ServiceError catch (e) {
       return Left(e);

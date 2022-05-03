@@ -43,32 +43,30 @@ class _DropdownComponentState extends State<DropdownComponent> {
 
     store = DataByUrlStore(
       usecase: usecase,
+      argsParam: globalFormController.getArgsParam(),
       header: globalFormController.getHeader(),
     );
 
-    notifier = globalFormController.getDependenceTreeValue(component.key) ??
-        ValueNotifier('');
+    notifier = globalFormController.getDependenceTreeValue(component.key) ?? ValueNotifier('');
     store.getValues(newComponent);
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final currentSize =
-        size.height > 1920 ? size.height * .1 : size.height * .12;
+    final currentSize = size.height > 1920 ? size.height * .1 : size.height * .12;
     return AnimatedBuilder(
       animation: notifier,
       builder: (context, _) {
         return Visibility(
-          visible:
-              GlobalRulesController.asConditional(component.conditional.when)
-                  ? GlobalRulesController.visible(
-                      component,
-                      globalFormController.getCurrentComponentInstance(
-                        component.conditional.when,
-                      ),
-                    )
-                  : true,
+          visible: GlobalRulesController.asConditional(component.conditional.when)
+              ? GlobalRulesController.visible(
+                  component,
+                  globalFormController.getCurrentComponentInstance(
+                    component.conditional.when,
+                  ),
+                )
+              : true,
           child: FieldBox(
             height: currentSize,
             child: Column(
@@ -122,47 +120,35 @@ class _DropdownComponentState extends State<DropdownComponent> {
                                 component, state.data.data!);
                           }
                           if (state is ValueDataByUrlState) {
-                            globalFormController
-                                .updateDropdownValues(component);
+                            globalFormController.updateDropdownValues(component);
                           }
                           return DropdownButton<String>(
                             icon: const Icon(
                               Icons.keyboard_arrow_down_rounded,
                               size: 25,
                             ),
-                            autofocus: component.key ==
-                                    globalFormController.lastKeyChanged
-                                ? true
-                                : false,
+                            autofocus:
+                                component.key == globalFormController.lastKeyChanged ? true : false,
                             underline: const SizedBox.shrink(),
                             isExpanded: true,
                             hint: Text(component.placeholder),
-                            value: component.value.isEmpty
-                                ? null
-                                : component.value,
+                            value: component.value.isEmpty ? null : component.value,
                             items: component.values.isEmpty
                                 ? [
                                     DropdownMenuItem(
                                       child: Text(
                                         component.value.toUpperCase(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline2,
+                                        style: Theme.of(context).textTheme.headline2,
                                       ),
                                       value: component.value,
                                     ),
                                   ]
                                 : List.generate(
-                                    component.values.isEmpty
-                                        ? 0
-                                        : component.values.length,
+                                    component.values.isEmpty ? 0 : component.values.length,
                                     (idx) => DropdownMenuItem(
                                       child: Text(
-                                        component.values[idx].label
-                                            .toUpperCase(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline2,
+                                        component.values[idx].label.toUpperCase(),
+                                        style: Theme.of(context).textTheme.headline2,
                                       ),
                                       value: component.values[idx].value,
                                       onTap: () {
@@ -170,8 +156,7 @@ class _DropdownComponentState extends State<DropdownComponent> {
                                           globalFormController.changeValue(
                                             component.selectValues,
                                             '',
-                                            diferentData:
-                                                component.values[idx].shortcut,
+                                            diferentData: component.values[idx].shortcut,
                                           );
                                           setState(() {});
                                         }

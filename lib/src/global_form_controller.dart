@@ -58,6 +58,10 @@ class GlobalFormController {
     return formData.header;
   }
 
+  String getArgsParam() {
+    return formData.argumentParam ?? '';
+  }
+
   String getCurrentValue(String key) {
     return _getLocalDataValue(key, submission.data);
   }
@@ -82,8 +86,7 @@ class GlobalFormController {
         return currentMap[keys.last];
       }
     } else {
-      if (currentMap[componentKey] == null ||
-          currentMap[componentKey] is! String) {
+      if (currentMap[componentKey] == null || currentMap[componentKey] is! String) {
         return '';
       } else {
         return currentMap[componentKey];
@@ -121,10 +124,7 @@ class GlobalFormController {
             } else {
               value = e.values.elementAt(0).toString();
             }
-            return ValuesEntity(
-                label: value,
-                value: e.keys.elementAt(0).toString(),
-                shortcut: e);
+            return ValuesEntity(label: value, value: e.keys.elementAt(0).toString(), shortcut: e);
           },
         ),
       );
@@ -138,10 +138,7 @@ class GlobalFormController {
             } else {
               value = e.values.elementAt(0).toString();
             }
-            return ValuesEntity(
-                label: value,
-                value: e[component.valueProperty].toString(),
-                shortcut: e);
+            return ValuesEntity(label: value, value: e[component.valueProperty].toString(), shortcut: e);
           },
         ),
       );
@@ -153,6 +150,15 @@ class GlobalFormController {
     Map<String, dynamic> map,
   ) {
     if (component.selectValues.isEmpty) {
+      if (map.containsKey('values')) {
+        var converterChildrensFromMap = map['values'] as List;
+        var childrensConverted = <Map<String, dynamic>>[];
+        for (var child in converterChildrensFromMap) {
+          final tempChild = child as Map<String, dynamic>;
+          childrensConverted.add(tempChild);
+        }
+        return childrensConverted;
+      }
       return map.values as List<Map<String, dynamic>>;
     } else {
       List result = map[component.selectValues];
@@ -170,11 +176,7 @@ class GlobalFormController {
       var hasDependenceValue = regDependence.hasMatch(url);
       if (hasDependenceValue) {
         final regDependenceKey = RegExp(r"'[^']*'");
-        final key = regDependenceKey
-            .allMatches(url)
-            .first
-            .group(0)!
-            .replaceAll("'", "");
+        final key = regDependenceKey.allMatches(url).first.group(0)!.replaceAll("'", "");
         final dependeceValue = _getLocalDataValue(
           key,
           submission.data,
@@ -193,10 +195,7 @@ class GlobalFormController {
     var reg1 = RegExp(r"<.\w*>");
     var reg2 = RegExp(r"[ {}]*");
     var reg3 = RegExp(r"item.");
-    template = template
-        .replaceAllMapped(reg1, (match) => '')
-        .replaceAllMapped(reg2, (match) => '')
-        .replaceAllMapped(reg3, (match) => '');
+    template = template.replaceAllMapped(reg1, (match) => '').replaceAllMapped(reg2, (match) => '').replaceAllMapped(reg3, (match) => '');
 
     var templatesFields = template.split('-');
     var newTemplate = '';
@@ -241,8 +240,7 @@ class GlobalFormController {
         _dependenceTree.update(
           componentData.objectKey,
           (value) => ValueNotifier(componentData.component.conditional.when),
-          ifAbsent: () =>
-              ValueNotifier(componentData.component.conditional.when),
+          ifAbsent: () => ValueNotifier(componentData.component.conditional.when),
         );
       }
       if (componentData.component.redrawOn.isNotEmpty) {
@@ -318,8 +316,7 @@ class GlobalFormController {
   }
 
   ///A facilitator to update information at any level of a map
-  void _updateMap(
-      Map<String, dynamic> map, dynamic newValue, List<String> keys) {
+  void _updateMap(Map<String, dynamic> map, dynamic newValue, List<String> keys) {
     for (var index = 0; index < keys.length; index++) {
       var currentKey = keys.elementAt(index);
       var last = index == keys.length - 1;
@@ -401,8 +398,7 @@ class GlobalFormController {
   }
 
   ///List of components relateds the your types
-  Widget _getComponentWidget(
-      String key, String type, ComponentEntity component) {
+  Widget _getComponentWidget(String key, String type, ComponentEntity component) {
     switch (type) {
       case 'textfield':
         return TextfieldComponent(keyString: key);

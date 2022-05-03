@@ -48,12 +48,10 @@ class ValidateAdapter extends ValidateEntity {
   factory ValidateAdapter.fromMap(Map<String, dynamic> map) {
     return ValidateAdapter(
       required: map['required'] ?? false,
-      minLength: map['minLength'] == null || map['minLength'] == ''
-          ? 0
-          : map['minLength'],
-      maxLength: map['maxLength'] == '' ? null : map['maxLength'],
-      minWords: map['minWords'],
-      maxWords: map['maxWords'],
+      minLength: map['minLength'] == null || map['minLength'] == '' ? 0 : map['minLength'],
+      maxLength: map['maxLength'] == null || map['maxLength'] == '' ? 0 : map['maxLength'],
+      minWords: map['minWords'] == null || map['minWords'] == '' ? 0 : map['minWords'],
+      maxWords: map['maxWords'] == null || map['maxWords'] == '' ? 0 : map['maxWords'],
       pattern: map['pattern'],
       customMessage: map['customMessage'],
       custom: map['custom'],
@@ -63,7 +61,7 @@ class ValidateAdapter extends ValidateEntity {
       multiple: map['multiple'] ?? false,
       unique: map['unique'] ?? false,
       min: map['min'],
-      max: map['max'] == '' ? null : map['max'],
+      max: map['max'] == null || map['max'] == '' ? 0 : map['max'],
       step: map['step'],
       integer: map['integer'],
       onlyAvailableItems: map['onlyAvailableItems'] ?? false,
