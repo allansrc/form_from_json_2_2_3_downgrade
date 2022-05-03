@@ -10,10 +10,12 @@ import '../states/data_by_url_state.dart';
 class DataByUrlStore extends ValueNotifier<DataByUrlState> {
   GetDataByUrlUsecaseInterface usecase;
   Map<String, String> header;
+  String argsParam;
 
   DataByUrlStore({
     required this.usecase,
     required this.header,
+    required this.argsParam,
   }) : super(InitialDataByUrlState());
 
   void _emmit(DataByUrlState state) {
@@ -39,7 +41,7 @@ class DataByUrlStore extends ValueNotifier<DataByUrlState> {
 
     final args = AccessParamsDto(url: component.data.url, headers: headerMap);
 
-    final result = await usecase(args);
+    final result = await usecase(args, argsParam);
     result.fold(
       (l) {
         _emmit(ErrorDataByUrlState(l.message));

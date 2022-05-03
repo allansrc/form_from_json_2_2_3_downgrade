@@ -12,8 +12,8 @@ class GetDataByUrlUsecase implements GetDataByUrlUsecaseInterface {
 
   @override
   Future<Either<FormFromJsonError, DataByUrlEntity>> call(
-      AccessParamsDto args) async {
-    final result = await repository(args);
+      AccessParamsDto args, String argsParam) async {
+    final result = await repository(args, argsParam);
     return result.fold((l) => Left(l), (r) => Right(r));
   }
 }

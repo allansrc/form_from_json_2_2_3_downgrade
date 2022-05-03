@@ -37,7 +37,7 @@ class FormAdapter extends FormEntity {
 
   factory FormAdapter.fromMap(Map<String, dynamic> map) {
     return FormAdapter(
-      id: map['id'].runtimeType != String ? (map['id']['id'] ?? '') : (map['id'] ?? ''),
+      id: ((map['id'] != null) ? (map['id'] == String ? map['id'] : (map['id']['id'] ?? '')) : ''),
       version: map['version']?.toInt() ?? 0,
       name: map['name'] ?? '',
       description: map['description'] ?? '',
