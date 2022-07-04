@@ -67,28 +67,25 @@ class _DatetimeComponentState extends State<DatetimeComponent> {
               DateTime.parse(value),
             ),
     );
-    notifier = globalFormController.getDependenceTreeValue(component.key) ??
-        ValueNotifier('');
+    notifier = globalFormController.getDependenceTreeValue(component.key) ?? ValueNotifier('');
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final currentSize =
-        size.height > 1920 ? size.height * .1 : size.height * .12;
+    final currentSize = size.height > 1920 ? size.height * .1 : size.height * .12;
     return AnimatedBuilder(
       animation: notifier,
       builder: (context, _) {
         return Visibility(
-          visible:
-              GlobalRulesController.asConditional(component.conditional.when)
-                  ? GlobalRulesController.visible(
-                      component,
-                      globalFormController.getCurrentComponentInstance(
-                        component.conditional.when,
-                      ),
-                    )
-                  : true,
+          visible: GlobalRulesController.asConditional(component.conditional.when)
+              ? GlobalRulesController.visible(
+                  component,
+                  globalFormController.getCurrentComponentInstance(
+                    component.conditional.when,
+                  ),
+                )
+              : true,
           child: InkWell(
             child: FieldBox(
               padding: true,
@@ -122,14 +119,12 @@ class _DatetimeComponentState extends State<DatetimeComponent> {
                       child: TextField(
                         scrollPadding: EdgeInsets.zero,
                         autofocus:
-                            component.key == globalFormController.lastKeyChanged
-                                ? true
-                                : false,
+                            component.key == globalFormController.lastKeyChanged ? true : false,
                         controller: dateController,
                         enabled: false,
                         obscureText: component.protected,
                         textAlign: TextAlign.left,
-                        style: Theme.of(context).textTheme.headline2,
+                        style: Theme.of(context).textTheme.headline3,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.symmetric(
                             horizontal: size.width * .03,

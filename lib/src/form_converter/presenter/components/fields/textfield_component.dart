@@ -33,33 +33,29 @@ class _TextfieldComponentState extends State<TextfieldComponent> {
     component = globalFormController.getCurrentComponentInstance(
       widget.keyString,
     );
-    notifier = globalFormController.getDependenceTreeValue(component.key) ??
-        ValueNotifier('');
+    notifier = globalFormController.getDependenceTreeValue(component.key) ?? ValueNotifier('');
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final currentSize =
-        size.height > 1920 ? size.height * .1 : size.height * .12;
+    final currentSize = size.height > 1920 ? size.height * .1 : size.height * .12;
     return AnimatedBuilder(
       animation: notifier,
       builder: (context, _) {
         var value = globalFormController.getCurrentValue(component.key);
-        textController.text = value.isEmpty
-            ? component.defaultValue.toUpperCase()
-            : value.toUpperCase();
+        textController.text =
+            value.isEmpty ? component.defaultValue.toUpperCase() : value.toUpperCase();
 
         return Visibility(
-          visible:
-              GlobalRulesController.asConditional(component.conditional.when)
-                  ? GlobalRulesController.visible(
-                      component,
-                      globalFormController.getCurrentComponentInstance(
-                        component.conditional.when,
-                      ),
-                    )
-                  : true,
+          visible: GlobalRulesController.asConditional(component.conditional.when)
+              ? GlobalRulesController.visible(
+                  component,
+                  globalFormController.getCurrentComponentInstance(
+                    component.conditional.when,
+                  ),
+                )
+              : true,
           child: FieldBox(
             padding: true,
             tooltip: component.tooltip,
@@ -91,16 +87,14 @@ class _TextfieldComponentState extends State<TextfieldComponent> {
                     child: TextField(
                       scrollPadding: EdgeInsets.zero,
                       autofocus:
-                          component.key == globalFormController.lastKeyChanged
-                              ? true
-                              : false,
+                          component.key == globalFormController.lastKeyChanged ? true : false,
                       controller: textController,
                       maxLines: component.rows,
                       keyboardType: widget.inputType,
                       enabled: !component.disabled,
                       obscureText: component.protected,
                       textAlign: TextAlign.left,
-                      style: Theme.of(context).textTheme.headline2,
+                      style: Theme.of(context).textTheme.headline3,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.symmetric(
                           horizontal: size.width * .03,

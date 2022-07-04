@@ -138,7 +138,7 @@ class _DropdownComponentState extends State<DropdownComponent> {
                                     DropdownMenuItem(
                                       child: Text(
                                         component.value.toUpperCase(),
-                                        style: Theme.of(context).textTheme.headline2,
+                                        style: Theme.of(context).textTheme.headline3,
                                       ),
                                       value: component.value,
                                     ),
@@ -148,7 +148,7 @@ class _DropdownComponentState extends State<DropdownComponent> {
                                     (idx) => DropdownMenuItem(
                                       child: Text(
                                         component.values[idx].label.toUpperCase(),
-                                        style: Theme.of(context).textTheme.headline2,
+                                        style: Theme.of(context).textTheme.headline3,
                                       ),
                                       value: component.values[idx].value,
                                       onTap: () {
